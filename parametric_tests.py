@@ -16,13 +16,13 @@ df = iris.frame.rename(columns={
 })
 df['species'] = df['species'].map(lambda i: iris.target_names[i])
 
-# 2. Statystyki opisowe
-def descriptive_stats(df):
-    print("--- Descriptive Statistics by Species ---")
-    desc = df.groupby('species')[['sepal_length','sepal_width','petal_length','petal_width']].mean()
-    print(desc, "\n")
+# # 2. Statystyki opisowe
+# def descriptive_stats(df):
+#     print("--- Descriptive Statistics by Species ---")
+#     desc = df.groupby('species')[['sepal_length','sepal_width','petal_length','petal_width']].mean()
+#     print(desc, "\n")
 
-descriptive_stats(df)
+# descriptive_stats(df)
 
 # 3. Student's t-test: sepal_width dla setosa vs versicolor
 print("--- Student's t-test: sepal_width (setosa vs versicolor) ---")
@@ -42,6 +42,17 @@ equal_var = p_lev > 0.05
 # 3.3 Test t-Studenta
 t_stat, p_val = stats.ttest_ind(x, y, equal_var=equal_var)
 print(f"t-test (equal_var={equal_var}): t = {t_stat:.3f}, p = {p_val:.3f}\n")
+
+print("--- Boxplot of sepal_width for setosa vs versicolor ---")
+plt.figure()
+df[df['species'].isin(['setosa','versicolor'])] \
+    .boxplot(column='sepal_width', by='species')
+plt.title('Sepal width by species (setosa vs versicolor)')
+plt.suptitle('')  # usuwa domyślny suptytuł
+plt.xlabel('Species')
+plt.ylabel('Sepal width (cm)')
+plt.tight_layout()
+plt.show()
 
 # 4. Welch's ANOVA: petal_length dla wszystkich gatunków
 print("--- Welch's ANOVA: petal_length across species ---")
