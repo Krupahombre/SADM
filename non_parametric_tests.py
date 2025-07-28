@@ -2,7 +2,6 @@ import pandas as pd
 from scipy import stats
 import matplotlib.pyplot as plt
 
-# Wczytanie danych
 hf = pd.read_csv('data/heart_failure_clinical_records_dataset.csv')
 alc = pd.read_csv('data/student-por.csv')
 
